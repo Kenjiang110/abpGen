@@ -1,0 +1,5 @@
+﻿
+        modelBuilder.Entity<{{EntityName}}>(b =>
+        {
+            //...
+        });

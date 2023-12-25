@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{16C2963E-A35C-44C4-840B-ED05FD17495A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bob.Abp.AppGen</RootNamespace>
+    <AssemblyName>Bob.Abp.AppGen</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <UseCodebase>true</UseCodebase>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CmdBase.cs" />
+    <Compile Include="CmdCrud.cs" />
+    <None Include="CustomerRazorEngineResolver.cs.bak" />
+    <Compile Include="CmdEditInfoFile.cs" />
+    <Compile Include="CmdGenerateInfoFile.cs" />
+    <Compile Include="CmdExtractInfoFile.cs" />
+    <Compile Include="Dialogs\EntityKindsConverter.cs" />
+    <Compile Include="Dialogs\ExtraInfoEditor.xaml.cs">
+      <DependentUpon>ExtraInfoEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ViewModel\EntityViewModel.cs" />
+    <Compile Include="Dialogs\ViewModel\KeyValue.cs" />
+    <Compile Include="Dialogs\ViewModel\PropertyViewModel.cs" />
+    <Compile Include="Dialogs\ViewModel\LanguageResourceViewModel.cs" />
+    <Compile Include="Dialogs\ViewModel\NotifyClassBase.cs" />
+    <Compile Include="Dialogs\ViewModel\PropertyGroupViewModel.cs" />
+    <Compile Include="DteExtension\CodeElementType.cs" />
+    <Compile Include="Models\AhProjectItem.cs" />
+    <Compile Include="Models\AhEditProjectItem.cs" />
+    <Compile Include="Models\AhCodeElement.cs" />
+    <Compile Include="Models\AhEditPoint.cs" />
+    <Compile Include="DteExtension\DteExtension.cs" />
+    <Compile Include="Models\Enums\PropertyGroupType.cs" />
+    <Compile Include="Models\PropertyGroup.cs" />
+    <Compile Include="Models\Enums\AbpMiscFile.cs" />
+    <Compile Include="Models\Enums\EntityKinds.cs" />
+    <Compile Include="Models\Enums\Postions.cs" />
+    <Compile Include="DteExtension\LocalizationFile.cs" />
+    <Compile Include="Models\Enums\AbpCreateFile.cs" />
+    <Compile Include="Models\Enums\AbpEditFile.cs" />
+    <Compile Include="Models\Enums\AbpProjectType.cs" />
+    <Compile Include="Models\AhEntity.cs" />
+    <Compile Include="Models\LanguageResource.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include=".AbpHelperPackage.cs" />
+    <Compile Include="Models\AhSolution.cs" />
+    <Compile Include="Models\EntityProperty.cs" />
+    <Compile Include="DteExtension\AbpCodeGenerator.cs" />
+    <Compile Include="TemplateDataModel\TabInfo.cs" />
+    <Compile Include="TemplateDataModel\PropertyInfo.cs" />
+    <Compile Include="TemplateDataModel\SimpleChainNode.cs" />
+    <Compile Include="TemplateDataModel\ChainNode.cs" />
+    <Compile Include="TemplateDataModel\TemplateDataExtension.cs" />
+    <Compile Include="TemplateDataModel\TemplateCoreData.cs" />
+    <Compile Include="TemplateDataModel\TemplateType.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="TemplateDataModel\TemplateData.cs" />
+    <EmbeddedResource Include="Templates\Application\AppService.vue" />
+    <EmbeddedResource Include="Templates\Contracts\DtoUpdate.vue" />
+    <EmbeddedResource Include="Templates\Contracts\DtoEntity.vue" />
+    <EmbeddedResource Include="Templates\Contracts\IAppService.vue" />
+    <EmbeddedResource Include="Templates\Contracts\DtoRequest.vue" />
+    <EmbeddedResource Include="Templates\Usings.vue" />
+    <EmbeddedResource Include="Templates\Contracts\PermissionConst.vue" />
+    <EmbeddedResource Include="Templates\Contracts\PermissionDefine.vue" />
+    <EmbeddedResource Include="Templates\Application\AutoMapper.vue" />
+    <EmbeddedResource Include="Templates\Contracts\PermissionDefine_Calling.vue" />
+    <EmbeddedResource Include="Templates\Application\AutoMapper_Calling.vue" />
+    <EmbeddedResource Include="Templates\MongoDB\IDbContext.vue" />
+    <EmbeddedResource Include="Templates\MongoDB\DbContext.vue" />
+    <EmbeddedResource Include="Templates\MongoDB\DbContext_Calling.vue" />
+    <EmbeddedResource Include="Templates\Web\AutoMapper_Calling.vue" />
+    <EmbeddedResource Include="Templates\Web\AutoMapper.vue" />
+    <EmbeddedResource Include="Templates\Web\PageToolbar.vue" />
+    <EmbeddedResource Include="Templates\Web\PageToolbar_Calling.vue" />
+    <EmbeddedResource Include="Templates\Web\PageAuthorization.vue" />
+    <EmbeddedResource Include="Templates\Web\PageAuthorization_Calling.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\Consts.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\Contributor.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\ContributorModify_Calling.vue" />
+    <EmbeddedResource Include="Templates\Application\AutoMapper_Using.vue" />
+    <EmbeddedResource Include="Templates\MongoDB\IDbContext_Using.vue" />
+    <EmbeddedResource Include="Templates\MongoDB\DbContext_Using.vue" />
+    <EmbeddedResource Include="Templates\Web\AutoMapper_Using.vue" />
+    <EmbeddedResource Include="Templates\Web\PageToolbar_Using.vue" />
+    <EmbeddedResource Include="Templates\Web\PageAuthorization_Using.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\Contributor_Calling.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\ContributorModify.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\ContributorModify_Using.vue" />
+    <EmbeddedResource Include="Templates\HttpApi\Controller.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\Index.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\IndexJs.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\IndexCs.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\CreateCs.vue" />
+    <EmbeddedResource Include="Templates\Shared\EntityConsts.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\EditCs.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\Edit.vue" />
+    <EmbeddedResource Include="Templates\Contracts\RemoteServiceConsts.vue" />
+    <EmbeddedResource Include="Templates\Contracts\DtoCreateUpdateBase.vue" />
+    <EmbeddedResource Include="Templates\Contracts\DtoCreate.vue" />
+    <EmbeddedResource Include="Templates\Domain\InfoFile.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\ViewModel.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\Create.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\CreateJs.vue" />
+    <EmbeddedResource Include="Templates\Web\Page\EditJs.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\MenuItemInfo.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\CreatingExtensions.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\CreatingExtensions_Calling.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\CreatingExtensions_Using.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\DbContext.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\DbContext_Using.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\IDbContext.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\IDbContext_Using.vue" />
+    <EmbeddedResource Include="Templates\Domain\IRepository.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\Repository.vue" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.5.33428.388" ExcludeAssets="runtime">
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.5.4072">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Nustache">
+      <Version>1.16.0.10</Version>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>4.1.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <VSCTCompile Include="AbpHelperPackage.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HeroLogoS.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\HerosAbpGen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dialogs\ExtraInfoEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

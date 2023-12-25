@@ -1,0 +1,194 @@
+﻿<platformUi:DialogWindow  xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bob.Abp.AppGen.Dialogs"
+             xmlns:model="clr-namespace:Bob.Abp.AppGen.Models"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewmodel="clr-namespace:Bob.Abp.AppGen.Dialogs.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodel:EntityViewModel}"
+             x:Class="Bob.Abp.AppGen.Dialogs.ExtraInfoEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <platformUi:DialogWindow.Resources>
+        <local:EntityKindsConverter x:Key="ekConveter"/>
+    </platformUi:DialogWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="Basic">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="1" Content="Namespace" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" />
+                    <Label Grid.Column="1" Content="RelativePath" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" />
+                    <Label Grid.Column="1" Content="Entity Name" HorizontalAlignment="Right"  Grid.Row="3" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="Entity Kind" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="Batch Delete" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" />
+                    <Label Grid.Column="1" Content="Extra Usings" HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Top"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" Text="{Binding Namespace}" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="2" Text="{Binding RelativePath}" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="3" Text="{Binding Name}" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Column="3" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
+                        <CheckBox Content="Entity" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Entity}, Converter={StaticResource ekConveter}}" />
+                        <CheckBox Content="Hierarcy" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Hierarcy}, Converter={StaticResource ekConveter}}"/>
+                        <CheckBox Content="Extensible" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Extensible}, Converter={StaticResource ekConveter}}"/>
+                        <CheckBox Content="MultiTent" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.MultiTenant}, Converter={StaticResource ekConveter}}"/>
+                    </StackPanel>
+                    <CheckBox Grid.Column="3" Content="Allowed" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" IsChecked="{Binding AllowBatchDelete}"/>
+                    <Grid Grid.Column="3" Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="tbExtraUsing" TextWrapping="Wrap" Text="{Binding SelectedItem, ElementName=lxExtraUsings, Mode=OneWay}" VerticalAlignment="Top"/>
+                        <Button Content="Add" Click="AddExtraUsing_Click" Grid.Column="1" VerticalAlignment="Top" Margin="5,0,5,0"/>
+                        <Button Content="Save" Click="UpdateExtraUsing_Click" Grid.Column="2" VerticalAlignment="Top" Margin="5,0,5,0"/>
+                        <Button Content="Remove" Click="RemoveExtraUsing_Click" Grid.Column="3" VerticalAlignment="Top" Margin="5,0,5,0"/>
+                        <ListBox x:Name="lxExtraUsings" ItemsSource="{Binding ExtraUsings}" Grid.Row="1" Grid.ColumnSpan="4" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Properties">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="dgProperties" Grid.RowSpan="4" ItemsSource="{Binding Properties}" AutoGenerateColumns="False" SelectedItem="{Binding CurrentProperty}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Type" Binding="{Binding PropertyType}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding PropertyName}"/>
+                            <DataGridTextColumn Header="Max/Percise" Binding="{Binding MaxLengthOrPercise}"/>
+                            <DataGridTextColumn Header="Min/Scale" Binding="{Binding MinLengthOrScale}"/>
+                            <DataGridCheckBoxColumn Header="IsEnum" Binding="{Binding IsEnum}"/>
+                            <DataGridCheckBoxColumn Header="IsList" Binding="{Binding IsList}"/>
+                            <DataGridCheckBoxColumn Header="Required" Binding="{Binding Required}"/>
+                            <DataGridCheckBoxColumn Header="Index" Binding="{Binding IsListField}"/>
+                            <DataGridCheckBoxColumn Header="Request" Binding="{Binding IsRequestField}"/>
+                            <DataGridCheckBoxColumn Header="Create" Binding="{Binding IsCreateField}"/>
+                            <DataGridCheckBoxColumn Header="Update" Binding="{Binding IsUpdateField}"/>
+                            <DataGridCheckBoxColumn Header="Hidden" Binding="{Binding IsHiddenField}"/>
+                            <DataGridCheckBoxColumn Header="ReadOnly" Binding="{Binding ReadOnlyWhenUpdate}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text="Members" VerticalAlignment="Center"/>
+                    <TextBox x:Name="tbMember" Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="1" Text="{Binding SelectedItem, ElementName=lxMembers, Mode=OneWay}" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Add" Click="AddMember_Click" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                        <Button Content="Update" Click="UpdateMember_Click" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                        <Button Content="Remove" Click="RemoveMember_Click" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    </StackPanel>
+                    <ListBox x:Name="lxMembers" Grid.Column="2" Grid.Row="3" ItemsSource="{Binding CurrentMembers}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Groups">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="tbTitle" Grid.Column="1" Grid.Row="1" Text="{Binding CurrentGroup.Title, Mode=OneWay}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="cbTabType" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding CurrentGroup.TabType, Mode=OneWay}"/>
+                    <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="2" >
+                        <Button Content="Add" Click="AddGroup_Click" Margin="5,0,5,0"/>
+                        <Button Content="Update" Click="UpdateGroup_Click" Margin="5,0,5,0"/>
+                        <Button Content="Remove" Click="RemoveGroup_Click" Margin="5,0,5,0"/>
+                    </StackPanel>
+                    <ListBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding PropertyGroups}" SelectedItem="{Binding CurrentGroup}" Grid.ColumnSpan="2" Margin="0,0,0,20" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+                                    <Label Content="{Binding TabType}"/>
+                                    <Label Content="{Binding Title}" FontWeight="Bold" Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <ListBox x:Name="lxNames" Grid.Column="3" MouseDoubleClick="DeselectProperty_MouseDoubleClick" Grid.Row="3" ItemsSource="{Binding CurrentNames, Mode=OneWay}" Margin="0,0,0,20" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+                                    <Label Content="{Binding Key}"/>
+                                    <Label Content="{Binding Value}" FontWeight="Bold" Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <ListBox x:Name="lxAvalibles" Grid.Column="4" MouseDoubleClick="SelectProperty_MouseDoubleClick" Grid.Row="3" ItemsSource="{Binding CurrentAvalibles, Mode=OneWay}" Margin="0,0,0,20" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" >
+                                    <Label Content="{Binding Key}"/>
+                                    <Label Content="{Binding Value}" FontWeight="Bold" Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Generations">
+                <Grid>
+                    <ListBox Margin="10,20,10,20" ItemsSource="{Binding SkipCollection}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Value, Mode=TwoWay}">
+                                    <CheckBox.Content>
+                                        <TextBlock Text="{Binding Key, Mode=OneWay}"/>
+                                    </CheckBox.Content>
+                                </CheckBox>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Height="35" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1">
+            <Button IsDefault="true" Content=" Save and Quit " Click="CloseButton_Click" Margin="5,5,0,5" VerticalAlignment="Center"/>
+            <Button IsCancel="true" Content=" Quit Without Saving "  Margin="5,5,0,5" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</platformUi:DialogWindow>

@@ -1,0 +1,1 @@
+﻿{{RootNamespace}}.{{ModuleName}}.Permissions

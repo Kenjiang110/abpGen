@@ -1,0 +1,2 @@
+﻿MongoDB.Driver
+{{Namespace}}

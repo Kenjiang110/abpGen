@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bob.Abp.AppGen", "Bob.Abp.AppGen\Bob.Abp.AppGen.csproj", "{16C2963E-A35C-44C4-840B-ED05FD17495A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|arm64 = Debug|arm64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|arm64 = Release|arm64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Debug|arm64.ActiveCfg = Debug|arm64
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Debug|arm64.Build.0 = Debug|arm64
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Debug|x86.ActiveCfg = Debug|x86
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Debug|x86.Build.0 = Debug|x86
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|arm64.ActiveCfg = Release|arm64
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|arm64.Build.0 = Release|arm64
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|x86.ActiveCfg = Release|x86
+		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {271D0499-62C0-400C-AE73-B5901E8B07D9}
+	EndGlobalSection
+EndGlobal
