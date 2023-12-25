@@ -333,7 +333,7 @@ namespace Bob.Abp.AppGen.DteExtension
                     {
                         return EntityKinds.Entity;
                     }
-                    return GetEntityKinds(elem as CodeClass);
+                    return GetEntityKinds(elem as CodeClass);  //recursively
                 }
             }
 
@@ -428,33 +428,7 @@ namespace Bob.Abp.AppGen.DteExtension
 
         #region AbpHelper Models
 
-        /// <summary>
-        /// Get Entity model from codeClass and saved file.
-        /// </summary>
-        /// <param name="codeClass">Entity CodeClass.</param>
-        private static AhEntity FillEntityModel(this CodeClass codeClass, AhEntity entityModel)
-        {
-            //Get basic information
-            foreach (CodeElement codeElement in codeClass.Members)
-            {
-                ExtractPropertyInfo(entityModel, codeElement);
-            }
-
-            //initial extra information
-            entityModel.SetDefaultLanguageResource("en");
-            entityModel.SetDefaultLanguageResource("zh-Hans", "新建{0}");
-
-            //try to merge saved extra information
-            if (File.Exists(entityModel.FullFileName))
-            {
-                var savedContent = File.ReadAllText(entityModel.FullFileName, Encoding.UTF8);
-                entityModel.SavedEntity = JsonConvert.DeserializeObject<AhEntity>(savedContent);
-            }
-
-            return entityModel;
-        }
-
-        private static void ExtractPropertyInfo(AhEntity entityModel, CodeElement codeElement)
+        private static void ExtractPropertyInfo(this CodeElement codeElement, AhEntity entityModel)
         {
             if (codeElement.Kind == vsCMElement.vsCMElementProperty)
             {
@@ -505,6 +479,55 @@ namespace Bob.Abp.AppGen.DteExtension
                 //save property
                 entityModel.AddProperty(entityProperty);
             }
+        }
+
+        private static IEnumerable<CodeClass> GetAllNotEntityAncestor(this CodeClass codeClass)
+        {
+            if (codeClass != null)
+            {
+                yield return codeClass;
+
+                foreach (CodeClass bClass in codeClass.Bases)
+                {
+                    if (bClass.Name != "AggregateRoot" && bClass.Name != "Entity")
+                    {
+                        yield return bClass;
+                        foreach (var aClass in GetAllNotEntityAncestor(bClass))
+                        {
+                            yield return aClass;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get Entity model from codeClass and saved file.
+        /// </summary>
+        /// <param name="codeClass">Entity CodeClass.</param>
+        private static AhEntity FillEntityModel(this CodeClass codeClass, AhEntity entityModel)
+        {
+            //Get basic information
+            foreach (var aClass in codeClass.GetAllNotEntityAncestor())
+            {
+                foreach (CodeElement codeElement in aClass.Members)
+                {
+                    codeElement.ExtractPropertyInfo(entityModel);
+                }
+            }
+
+            //initial extra information
+            entityModel.SetDefaultLanguageResource("en");
+            entityModel.SetDefaultLanguageResource("zh-Hans", "新建{0}");
+
+            //try to merge saved extra information
+            if (File.Exists(entityModel.FullFileName))
+            {
+                var savedContent = File.ReadAllText(entityModel.FullFileName, Encoding.UTF8);
+                entityModel.SavedEntity = JsonConvert.DeserializeObject<AhEntity>(savedContent);
+            }
+
+            return entityModel;
         }
 
         /// <summary>
