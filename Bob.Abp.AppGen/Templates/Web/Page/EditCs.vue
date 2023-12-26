@@ -53,7 +53,7 @@ public class EditModalModel : {{ModuleName}}PageModel
         return new JsonResult(dto);
     }
 
-    public class {{EntityName}}InfoModel : CreateModalModel.{{EntityName}}InfoModel, IHasConcurrencyStamp
+    public class {{EntityName}}InfoModel : {{EntityName}}.{{EntityName}}InfoModel, IHasConcurrencyStamp
     {
         [HiddenInput]
         public Guid Id { get; set; }
