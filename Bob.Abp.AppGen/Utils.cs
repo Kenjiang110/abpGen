@@ -287,7 +287,8 @@ namespace Bob.Abp.AppGen
 
         public static bool IsSimpleType(this string typeName)
         {
-            var simpleTypes = new string[] { "sbyte", "short", "int", "long", "byte", "ushort", "uint", "ulong", "float", "double", "bool", "char", "string" };
+            var simpleTypes = new string[] { "sbyte", "short", "int", "long", "byte", "ushort", "uint", "ulong", "float", "double", "bool", "char",
+                "string", "Guid", "DateTime" };
             return simpleTypes.Any(t => typeName != null && typeName.StartsWith(t));
         }
 
