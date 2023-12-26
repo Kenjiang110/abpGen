@@ -21,9 +21,9 @@
             <abp-input asp-for="{{EntityName}}.ConcurrencyStamp" />
         {{^UseTabUi}}
             {{#BasicUiTab}}
-                {{#Properties}}
+                {{#UpdateProperties}}
             <abp-{{^IsEnum}}input{{/IsEnum}}{{#IsEnum}}select{{/IsEnum}} asp-for="{{EntityName}}.{{PropertyName}}" />
-                {{/Properties}}
+                {{/UpdateProperties}}
             {{/BasicUiTab}}
         {{/UseTabUi}}
         {{#UseTabUi}}

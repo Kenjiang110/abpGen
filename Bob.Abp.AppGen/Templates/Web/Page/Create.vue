@@ -21,9 +21,9 @@
         <abp-modal-body id="{{EntityName}}CreateModalWrapper">
         {{^UseTabUi}}
             {{#BasicUiTab}}
-                {{#Properties}}
+                {{#CreateProperties}}
             <abp-{{^IsEnum}}input{{/IsEnum}}{{#IsEnum}}select{{/IsEnum}} asp-for="{{EntityName}}.{{PropertyName}}" />
-                {{/Properties}}
+                {{/CreateProperties}}
             {{/BasicUiTab}}
         {{/UseTabUi}}
         {{#UseTabUi}}
