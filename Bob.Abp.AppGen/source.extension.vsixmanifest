@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Bob.Abp.AppGen.5c46acf4-2bb6-48a1-81bb-c6facd5f4559" Version="1.4.5" Language="en-US" Publisher="Ken" />
+        <Identity Id="Bob.Abp.AppGen.5c46acf4-2bb6-48a1-81bb-c6facd5f4559" Version="1.4.7" Language="en-US" Publisher="Ken" />
         <DisplayName>Bob.Abp.AppGen</DisplayName>
         <Description xml:space="preserve">Generate ABP vNext a set of CRUD files for an Entity. 
 Abp 5.1</Description>

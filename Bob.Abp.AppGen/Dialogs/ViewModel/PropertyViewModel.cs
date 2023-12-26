@@ -19,6 +19,8 @@ namespace Bob.Abp.AppGen.Dialogs.ViewModel
 
         public bool Nullable { get; set; }
 
+        public bool PublicSetter { get; set; }
+
         public int? MaxLengthOrPercise { get; set; }
 
         public int? MinLengthOrScale { get; set; }
