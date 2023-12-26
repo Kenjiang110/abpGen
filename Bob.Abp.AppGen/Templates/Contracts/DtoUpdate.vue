@@ -7,11 +7,8 @@ public class {{EntityName}}UpdateDto : {{EntityName}}CreateOrUpdateDtoBase, IHas
 {
 {{#PureUpdateProperties}}
     public virtual {{{ToDto PropertyType}}} {{PropertyName}} { get; set; }{{#IsString}}{{^Nullable}} = string.Empty;{{/Nullable}}{{/IsString}}
-    {{^IsLast}}
 
-    {{/IsLast}}
 {{/PureUpdateProperties}}
-
     public string ConcurrencyStamp { get; set; } = string.Empty;
 }
 
