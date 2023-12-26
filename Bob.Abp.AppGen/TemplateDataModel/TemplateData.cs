@@ -196,10 +196,15 @@ namespace Bob.Abp.AppGen.Templates
                 IsHiddenField = hiddenFields.Contains(t.PropertyName),
                 IsListField = listFields.Contains(t.PropertyName),
                 ReadOnlyWhenUpdate = readOnlyFields.Contains(t.PropertyName),
-                IsLast = false
+                IsLast = false,
+                IsFirst = false,
             }).ToList();
 
-            if (piList.Count > 0) piList[piList.Count - 1].IsLast = true;
+            if (piList.Count > 0)
+            {
+                piList[0].IsFirst = true;
+                piList[piList.Count - 1].IsLast = true;
+            }
             return piList;
         }
 
@@ -209,9 +214,11 @@ namespace Bob.Abp.AppGen.Templates
                 .Select(t => t.Clone() as PropertyInfo)
                 .OrderByDescending(t => t.IsString)  //strings go first
                 .ToList();
+
+            piList.ForEach(t => { t.IsLast = false; t.IsFirst = false; });
             if (piList.Count > 0)
             {
-                piList.ForEach(t => t.IsLast = false);
+                piList[0].IsFirst = true;
                 piList[piList.Count - 1].IsLast = true;
             }
             return piList;

@@ -48,6 +48,8 @@ namespace Bob.Abp.AppGen.Templates
 
         public bool IsLast { get; set; } = false;
 
+        public bool IsFirst { get; set; } = false;
+
         public bool IsListField { get; set; } = false;
 
         public bool IsRequestField { get; set; } = false;

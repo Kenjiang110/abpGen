@@ -491,7 +491,6 @@ namespace Bob.Abp.AppGen.DteExtension
                 {
                     if (bClass.Name != "AggregateRoot" && bClass.Name != "Entity")
                     {
-                        yield return bClass;
                         foreach (var aClass in GetAllNotEntityAncestor(bClass))
                         {
                             yield return aClass;

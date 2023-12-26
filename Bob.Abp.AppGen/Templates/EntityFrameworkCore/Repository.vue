@@ -27,7 +27,10 @@ public class {{EntityName}}Repository(IDbContextProvider<{{ModuleName}}DbContext
             .WhereIf({{ToCamel PropertyName}}.HasValue, x => x.{{PropertyName}} == {{ToCamel PropertyName}}!.Value)
     {{/RequestNotStringProperties}}
     {{#HasStringRequestField}}
-            .WhereIf(!filter.IsNullOrWhiteSpace(), x =>{{#RequestStringProperties}}x.{{PropertyName}}.Contains(filter!){{^IsLast}} || {{/IsLast}}{{/RequestStringProperties}});
+            .WhereIf(!filter.IsNullOrWhiteSpace(), x => 
+        {{#RequestStringProperties}}
+                {{^IsFirst}}|| {{/IsFirst}}x.{{PropertyName}}.Contains(filter!){{#IsLast}});{{/IsLast}}
+        {{/RequestStringProperties}}
     {{/HasStringRequestField}}
     }
 
@@ -41,7 +44,7 @@ public class {{EntityName}}Repository(IDbContextProvider<{{ModuleName}}DbContext
     bool includeDetails = false, CancellationToken cancellationToken = default)
     {
         return await (await GetQueryableAsync(filter{{#RequestNotStringProperties}}, {{ToCamel PropertyName}}{{/RequestNotStringProperties}}, includeDetails))
-             .OrderBy(sorting.IsNullOrWhiteSpace() ? "Id" : sorting)
+             .OrderBy(sorting == null || sorting.IsNullOrWhiteSpace() ? "Id" : sorting)
              .PageBy(skipCount, maxResultCount)
              .ToListAsync(GetCancellationToken(cancellationToken));
     }
