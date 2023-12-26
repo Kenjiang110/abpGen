@@ -40,7 +40,7 @@ public class {{EntityName}}AppService : {{ModuleName}}AppService, I{{EntityName}
 
         var totalCount = await {{EntityName}}Repository.GetCountAsync(
     {{#HasStringRequestField}}
-            input.filter{{#HasNotStringRequestField}},{{/HasNotStringRequestField}}
+            input.Filter{{#HasNotStringRequestField}},{{/HasNotStringRequestField}}
     {{/HasStringRequestField}}
     {{#RequestNotStringProperties}}
             input.{{PropertyName}}{{^IsLast}},{{/IsLast}}
