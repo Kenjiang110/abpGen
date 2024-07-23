@@ -134,11 +134,12 @@ namespace Bob.Abp.AppGen.DteExtension
             return this;
         }
 
-        public LocalizationFile Add(Dictionary<string, string> propertyResources)
+        public LocalizationFile Add(Dictionary<string, string> propertyResources, string className = null)
         {
+            var classPrefix = string.IsNullOrEmpty(className) ? "" : $"{className}:";
             foreach (var property in propertyResources)
             {
-                Add($"DisplayName:{property.Key}", property.Value);
+                Add($"DisplayName:{classPrefix}{property.Key}", property.Value);
             }
             return this;
         }

@@ -36,12 +36,12 @@ public class {{EntityName}}Repository(IDbContextProvider<{{ModuleName}}DbContext
 
     public async virtual Task<List<{{EntityName}}>> GetListAsync(string? sorting, int skipCount, int maxResultCount,
     {{#HasStringRequestField}}
-            string? filter = null,
+        string? filter = null,
     {{/HasStringRequestField}}
     {{#RequestNotStringProperties}}
-            {{{PropertyType}}}? {{ToCamel PropertyName}} = null,
+        {{{PropertyType}}}? {{ToCamel PropertyName}} = null,
     {{/RequestNotStringProperties}}
-    bool includeDetails = false, CancellationToken cancellationToken = default)
+        bool includeDetails = false, CancellationToken cancellationToken = default)
     {
         return await (await GetQueryableAsync(filter{{#RequestNotStringProperties}}, {{ToCamel PropertyName}}{{/RequestNotStringProperties}}, includeDetails))
              .OrderBy(sorting == null || sorting.IsNullOrWhiteSpace() ? "Id" : sorting)
@@ -51,7 +51,7 @@ public class {{EntityName}}Repository(IDbContextProvider<{{ModuleName}}DbContext
 
     public async Task<long> GetCountAsync({{#HasStringRequestField}}string? filter = null,{{/HasStringRequestField}}
     {{#RequestNotStringProperties}}
-            {{{PropertyType}}}? {{ToCamel PropertyName}} = null,
+        {{{PropertyType}}}? {{ToCamel PropertyName}} = null,
     {{/RequestNotStringProperties}}
         CancellationToken cancellationToken = default)
     {

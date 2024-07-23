@@ -44,12 +44,13 @@ public class {{EntityName}}AppService : {{ModuleName}}AppService, I{{EntityName}
     {{/HasStringRequestField}}
     {{#RequestNotStringProperties}}
             input.{{PropertyName}}{{^IsLast}},{{/IsLast}}
-    {{/RequestNotStringProperties}}        );
+    {{/RequestNotStringProperties}}
+        );
 
         return new PagedResultDto<{{EntityName}}Dto>(
             totalCount,
             ObjectMapper.Map<List<{{EntityName}}>, List<{{EntityName}}Dto>>(list)
-            );
+        );
     }
 
     [Authorize({{ModuleName}}Permissions.{{EntityName}}.Create)]
@@ -60,7 +61,7 @@ public class {{EntityName}}AppService : {{ModuleName}}AppService, I{{EntityName}
             {{ToCamel PropertyName}}: input.{{PropertyName}}{{^IsLast}},{{/IsLast}}{{#IsLast}});{{/IsLast}}
     {{/CreateProperties}}
     {{#IsExtensible}}
-        input.MapExtraPropertiesTo({{Lower.EntityName}});
+            input.MapExtraPropertiesTo({{Lower.EntityName}});
     {{/IsExtensible}} 
         {{Lower.EntityName}} = await {{EntityName}}Repository.InsertAsync({{Lower.EntityName}}, true);
 

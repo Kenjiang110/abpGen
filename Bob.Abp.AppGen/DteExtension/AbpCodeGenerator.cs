@@ -39,7 +39,7 @@ namespace Bob.Abp.AppGen.DteExtension
                 LocalizationFile lf = new LocalizationFile(fullfolderPathName, language.Culture, !_safeMode);
                 lf.Add($"Menu:{_entity.Name}", language.DisplayName, true);
                 lf.Add($"New{_entity.Name}", language.NewEntityCmd);
-                lf.Add(language.Properties);
+                lf.Add(language.Properties, _entity.Name);
                 lf.Add(language.Enums);
 
                 lf.Save(false);
