@@ -1,0 +1,2 @@
+﻿        builder.Configure{{ModuleName}}();
+

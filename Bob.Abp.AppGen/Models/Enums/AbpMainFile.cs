@@ -65,6 +65,9 @@ namespace Bob.Abp.AppGen.Models
                 new AhEditProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContext.cs", vsCMElement.vsCMElementProperty, "{1}_s", "DbContext")
                     .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, TemplateType.Using)
                     .AddEditPoint("{0}DbContext", vsCMElement.vsCMElementFunction, Positions.Before, TemplateType.Main),
+                new AhProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContextModelCreatingExtensions.cs", "CreatingExtensions", secured: true),
+                new AhEditProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContext.cs", vsCMElement.vsCMElementOther, "builder.Configure{0}()", "Configure")
+                    .AddEditPoint("OnModelCreating", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Main),
                 new AhEditProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContextModelCreatingExtensions.cs", vsCMElement.vsCMElementFunction, "Configure{1}", "CreatingExtensions")
                     .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, TemplateType.Using)
                     .AddEditPoint("Configure{0}", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Calling)
