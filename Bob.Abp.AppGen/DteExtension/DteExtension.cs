@@ -1,7 +1,10 @@
 ﻿using Bob.Abp.AppGen.Models;
 using Bob.Abp.AppGen.Templates;
 using EnvDTE;
-//using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.TextManager.Interop;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell.Interop;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Media;
+
 
 namespace Bob.Abp.AppGen.DteExtension
 {
@@ -698,8 +701,21 @@ namespace Bob.Abp.AppGen.DteExtension
         /// <returns>true if exists and false if don't.</returns>
         public static bool CodeElementExists(this AhCodeElement ahCodeElement, ProjectItem projectItem, ref CodeElement mainElement, bool removeIt)
         {
-            CodeElement codeElement = ahCodeElement.ToCodeElement(projectItem, ref mainElement, removeIt);
-            return codeElement != null;
+            if (ahCodeElement.Kind == vsCMElement.vsCMElementOther)
+            {
+                string filePath = projectItem.FileNames[1];
+                if (File.Exists(filePath))
+                {
+                    string txt = File.ReadAllText(filePath);
+                    return txt.IndexOf(ahCodeElement.Name) > -1;
+                }
+                return false;
+            }
+            else
+            {
+                CodeElement codeElement = ahCodeElement.ToCodeElement(projectItem, ref mainElement, removeIt);
+                return codeElement != null;
+            }
         }
 
         /// <summary>
@@ -731,7 +747,7 @@ namespace Bob.Abp.AppGen.DteExtension
             if (pos.HasFlag(Positions.End)) //end of the element
             {
                 //not ask for after end && has body
-                if (!pos.HasFlag(Positions.BeforeOrAfter) && codeElement.Kind.HasBody())
+                if (!pos.HasFlag(Positions.Outside) && codeElement.Kind.HasBody())
                 {
                     //ask for end of the body. 
                     ep = codeElement.GetEndPoint(vsCMPart.vsCMPartBody).CreateEditPoint();
@@ -745,7 +761,7 @@ namespace Bob.Abp.AppGen.DteExtension
             else //must is Positions.Start
             {
                 //not ask for before start && has body
-                if (!pos.HasFlag(Positions.BeforeOrAfter) && codeElement.Kind.HasBody())
+                if (!pos.HasFlag(Positions.Outside) && codeElement.Kind.HasBody())
                 {
                     //ask for start of the body. 
                     ep = codeElement.GetStartPoint(vsCMPart.vsCMPartBody).CreateEditPoint();

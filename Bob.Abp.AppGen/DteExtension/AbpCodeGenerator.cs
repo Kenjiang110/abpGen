@@ -56,43 +56,7 @@ namespace Bob.Abp.AppGen.DteExtension
             {
                 if (ahProjectItem is AhEditProjectItem ahPrjItem)
                 {
-                    var prjItem = ahPrjItem.ToProjectItem(_sln);
-                    if (prjItem == null) continue;  //ignore if file to modify donesn't exist.
-
-                    CodeElement mainCodeElement = null;
-                    //Core element's existence means assistant element was already prepared (added).
-                    //And !safeMode means force to update the core element and only the core element.
-                    bool exists = ahPrjItem.CoreElement.CodeElementExists(prjItem, ref mainCodeElement, removeIt: !_safeMode && !ahPrjItem.Secured);
-                    if (exists && (ahPrjItem.Secured || _safeMode))
-                    {
-                        continue;
-                    }
-
-                    foreach (var ahEp in ahPrjItem.EditPoints)
-                    {
-                        EditPoint editPoint = ahEp.ToEditPoint(prjItem, ref mainCodeElement);
-
-                        if (ahPrjItem.CoreElement.Kind == vsCMElement.vsCMElementVariable
-                            && ahEp.Is(TemplateType.Main))
-                        {
-                            var content = templateData.Build(ahEp);
-                            var vars = content.ToLines(StringSplitOptions.None);
-                            templateData.VariableChain = mainCodeElement.AddVariables(editPoint, vars);  //avoid duplicately add middle variables
-                        }
-                        else if (ahEp.Is(TemplateType.Using) && !exists)
-                        {
-                            var usNamespaces = templateData.BuildUsing(ahEp);
-                            prjItem.AddUsings(editPoint, usNamespaces);
-                        }
-                        //if Main tempalte then core element must has been removed or core element never added.
-                        else if (ahEp.Is(TemplateType.Main) || !exists)
-                        {
-                            var content = templateData.Build(ahEp);
-                            editPoint.Insert(content);
-                        }
-                    }
-
-                    if (prjItem.IsDirty) prjItem.Save();
+                    EditFile(templateData, ahPrjItem);
                 }
                 else
                 {
@@ -107,6 +71,48 @@ namespace Bob.Abp.AppGen.DteExtension
                     }
                 }
             }
+        }
+
+        private bool EditFile(TemplateData templateData, AhEditProjectItem ahPrjItem)
+        {
+            var prjItem = ahPrjItem.ToProjectItem(_sln);
+            if (prjItem == null) return false;  //ignore if file to modify donesn't exist.
+
+            CodeElement mainCodeElement = null;
+            //Core element's existence means assistant element was already prepared (added).
+            //And !safeMode means force to update the core element and only the core element.
+            bool exists = ahPrjItem.CoreElement.CodeElementExists(prjItem, ref mainCodeElement, removeIt: !_safeMode && !ahPrjItem.Secured);
+            if (exists && (ahPrjItem.Secured || _safeMode))
+            {
+                return false;
+            }
+
+            foreach (var ahEp in ahPrjItem.EditPoints)
+            {
+                EditPoint editPoint = ahEp.ToEditPoint(prjItem, ref mainCodeElement);
+
+                if (ahPrjItem.CoreElement.Kind == vsCMElement.vsCMElementVariable
+                    && ahEp.Is(TemplateType.Main))
+                {
+                    var content = templateData.Build(ahEp);
+                    var vars = content.ToLines(StringSplitOptions.None);
+                    templateData.VariableChain = mainCodeElement.AddVariables(editPoint, vars);  //avoid duplicately add middle variables
+                }
+                else if (ahEp.Is(TemplateType.Using) && !exists)
+                {
+                    var usNamespaces = templateData.BuildUsing(ahEp);
+                    prjItem.AddUsings(editPoint, usNamespaces);
+                }
+                //if Main tempalte then core element must has been removed or core element never added.
+                else if (ahEp.Is(TemplateType.Main) || !exists)
+                {
+                    var content = templateData.Build(ahEp);
+                    editPoint.Insert(content);
+                }
+            }
+
+            if (prjItem.IsDirty) prjItem.Save();
+            return true;
         }
     }
 }
