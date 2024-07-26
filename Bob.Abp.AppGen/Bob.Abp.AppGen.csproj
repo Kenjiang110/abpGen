@@ -72,7 +72,7 @@
     <Compile Include="Models\PropertyGroup.cs" />
     <Compile Include="Models\Enums\AbpMiscFile.cs" />
     <Compile Include="Models\Enums\EntityKinds.cs" />
-    <Compile Include="Models\Enums\Postions.cs" />
+    <Compile Include="Models\Enums\Positions.cs" />
     <Compile Include="DteExtension\LocalizationFile.cs" />
     <Compile Include="Models\Enums\AbpProjectType.cs" />
     <Compile Include="Models\AhEntity.cs" />
@@ -89,6 +89,7 @@
     <Compile Include="TemplateDataModel\TemplateDataExtension.cs" />
     <Compile Include="TemplateDataModel\TemplateCoreData.cs" />
     <Compile Include="TemplateDataModel\TemplateType.cs" />
+    <None Include="Templates\EntityFrameworkCore\CreatingExtensions.vue" />
     <Compile Include="Utils.cs" />
     <Compile Include="TemplateDataModel\TemplateData.cs" />
     <EmbeddedResource Include="Templates\Application\AppService.vue" />
@@ -149,6 +150,7 @@
     <EmbeddedResource Include="Templates\EntityFrameworkCore\IDbContext_Using.vue" />
     <EmbeddedResource Include="Templates\Domain\IRepository.vue" />
     <EmbeddedResource Include="Templates\EntityFrameworkCore\Repository.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\Configure_Main.vue" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">

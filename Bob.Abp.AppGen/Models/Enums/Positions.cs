@@ -18,19 +18,19 @@ namespace Bob.Abp.AppGen.Models
         Unknown = 0,
 
         /// <summary>
-        /// At beginning of the anchor element.
+        /// At beginning of the anchor element (inside).
         /// </summary>
         Start = 1,
 
         /// <summary>
-        /// At end of the anchor element.
+        /// At end of the anchor element (inside).
         /// </summary>
         End = 2,
 
         /// <summary>
         /// Before the start or after the end.
         /// </summary>
-        BeforeOrAfter = 4,
+        Outside = 4,
 
         /// <summary>
         /// Move one line in the direction.
@@ -38,13 +38,13 @@ namespace Bob.Abp.AppGen.Models
         ExtraMove = 8,
 
         /// <summary>
-        /// Before Start
+        /// Before Start (outside)
         /// </summary>
-        Before = Start | BeforeOrAfter,
+        Before = Start | Outside,
 
         /// <summary>
-        /// After End
+        /// After End (outside)
         /// </summary>
-        After = End | BeforeOrAfter
+        After = End | Outside
     }
 }
