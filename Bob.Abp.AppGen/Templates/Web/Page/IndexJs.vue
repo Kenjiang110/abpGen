@@ -81,7 +81,7 @@
     {{/AllowBatchDelete}}
     {{#ListProperties}}
                     {
-                        title: l('DisplayName:{{PropertyName}}'),
+                        title: l('DisplayName:{{EntityName}}:{{PropertyName}}'),
                         data: '{{ToCamel PropertyName}}',
         {{#IsEnum}}
                         render : function(data, type, row) {

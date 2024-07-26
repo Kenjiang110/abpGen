@@ -1,11 +1,5 @@
 ﻿using EnvDTE;
-using Bob.Abp.AppGen.Models;
-using Bob.Abp.AppGen.Templates;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bob.Abp.AppGen.Models
 {
@@ -28,7 +22,7 @@ namespace Bob.Abp.AppGen.Models
         /// <summary>
         /// Contructor
         /// </summary>
-        public AhEditProjectItem(AbpProjectType projectType, string relativePath, string fileName, vsCMElement kind, string name, bool secured = false) : base(projectType, relativePath, fileName, secured)
+        public AhEditProjectItem(AbpProjectType projectType, string relativePath, string fileName, vsCMElement kind, string name, string templateName, bool secured = false) : base(projectType, relativePath, fileName, templateName, secured)
         {
             EditPoints = new List<AhEditPoint>();
             RelativeFolder = relativePath;
@@ -61,9 +55,9 @@ namespace Bob.Abp.AppGen.Models
         /// <param name="position"></param>
         /// <param name="tempType"></param>
         /// <returns>This object for chain calling.</returns>
-        public AhEditProjectItem AddEditPoint(TemplateType tempType, string name, vsCMElement kind, Positions position, bool fallback = false)
+        public AhEditProjectItem AddEditPoint(string name, vsCMElement kind, Positions position, string templateName, bool fallback = false)
         {
-            var ep = new AhEditPoint(name, kind, position, tempType, fallback);
+            var ep = new AhEditPoint(name, kind, position, $"{TemplateName}_{templateName}", fallback);
             EditPoints.Add(ep);
 
             return this;

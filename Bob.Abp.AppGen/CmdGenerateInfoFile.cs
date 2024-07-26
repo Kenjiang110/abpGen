@@ -56,9 +56,8 @@ namespace Bob.Abp.AppGen
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package, EnvDTE80.DTE2 dte)
         {
-            await BaseInitializeAsync(package, dte);
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-
+            BaseInitialize(package, dte);
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CmdGenerateInfoFile(package, commandService);
         }
@@ -73,8 +72,9 @@ namespace Bob.Abp.AppGen
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             string title = "BOB ABP Assistant";
-            //new entityModel 
+            //build an domain info template file in the selected folder. 
             var content = TemplateExtension.NotBuild(AbpMiscFile.Domain_InfoFile);
             var entityModel = JsonConvert.DeserializeObject<AhEntity>(content);
             var editor = new ExtraInfoEditor(entityModel);

@@ -718,7 +718,7 @@ namespace Bob.Abp.AppGen.DteExtension
                 if (codeElement == null && ahEp.FallBackToRoot)
                 {
                     pos = Positions.End;
-                    var fbEp = new AhEditPoint(null, vsCMElement.vsCMElementClass, pos, ahEp.TemplateType);
+                    var fbEp = new AhEditPoint(null, vsCMElement.vsCMElementClass, pos, ahEp.TemplateName);
                     codeElement = fbEp.ToCodeElement(projectItem, ref mainElement);
                 }
                 if (codeElement == null)
@@ -875,6 +875,7 @@ namespace Bob.Abp.AppGen.DteExtension
                 if (pn.Name == paneName)
                 {
                     pane = pn;
+                    break;
                 }
             }
             if (pane == null) pane = dte.ToolWindows.OutputWindow.OutputWindowPanes.Add(paneName);

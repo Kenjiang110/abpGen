@@ -1,8 +1,6 @@
-﻿using EnvDTE;
-using Bob.Abp.AppGen.DteExtension;
+﻿using Bob.Abp.AppGen.DteExtension;
 using Bob.Abp.AppGen.Models;
-using Bob.Abp.AppGen.Templates;
-using Microsoft.VisualStudio;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -52,9 +50,8 @@ namespace Bob.Abp.AppGen
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package, EnvDTE80.DTE2 dte)
         {
-            await BaseInitializeAsync(package, dte);
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-
+            BaseInitialize(package, dte);
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CmdCrud(package, commandService);
         }
@@ -69,6 +66,7 @@ namespace Bob.Abp.AppGen
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             string title = "BOB ABP Assistant";
             //get model from cs or json file.
             ProjectItem prjItem = _dte.SelectedItems.GetSelectedItem();
@@ -89,27 +87,15 @@ Choose [Yes] to use safe mode, [No] to OVERWRITE all files and your manually mod
             if (!entityModel.SkipSettings.ToSkip(AbpMiscFile.Shared_Localization))
             {
                 OutputMessage("Modify localization file...");
-                bool done = abpGenerator.CreateOrUpdateLocalization();
-                OutputMessage(done ? "Done" : "Skipped.", null, true);
+                abpGenerator.CreateOrUpdateLocalization();
             }
-            //    create files
-            foreach (AbpCreateFile abpFile in Enum.GetValues(typeof(AbpCreateFile)))
+            // Main files
+            foreach (AbpMainFile abpFile in Enum.GetValues(typeof(AbpMainFile)))
             {
                 if (!entityModel.SkipSettings.ToSkip(abpFile))
                 {
                     OutputMessage($"Generate {abpFile}...");
-                    bool done = abpGenerator.CreateCodeFile(abpFile);
-                    OutputMessage(done ? "Done" : "Skipped.", null, true);
-                }
-            }
-            //    edit files
-            foreach (AbpEditFile abpFile in Enum.GetValues(typeof(AbpEditFile)))
-            {
-                if (!entityModel.SkipSettings.ToSkip(abpFile))
-                {
-                    OutputMessage($"Modify {abpFile}...");
-                    bool done = abpGenerator.ModifyCodeFile(abpFile);
-                    OutputMessage(done ? "Done" : "Skipped.", null, true);
+                    abpGenerator.CreateOrEditFiles(abpFile);
                 }
             }
 

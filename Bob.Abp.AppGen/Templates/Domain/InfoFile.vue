@@ -55,43 +55,20 @@
     }
   ],
   "SkipSettings": {
-    "Shared_Localization": true,
-    "Shared_EntityConsts": true,
+    "Shared_Localization": false,
 
-    "Contracts_DtoEntity": true,
-    "Contracts_DtoRequest": true,
-    "Contracts_DtoCreateUpdateBase": false,
-    "Contracts_DtoCreate": false,
-    "Contracts_DtoUpdate": true,
-    "Contracts_IAppService": true,
-
+    "Contracts_Dtos": false,
     "Contracts_RemoteServiceConsts": true,
-    "Contracts_PermissionConst": true,
-    "Contracts_PermissionDefine": true,
+    "MongoDB_Repository": true,
+    "EntityFrameworkCore_Repository": false,
 
-    "Application_AutoMapper": false,
-    "Application_AppService": false,
+    "Permission": false,
+    "AppService": false,
     "HttpApi_Controller": true,
 
-    "Web_Page_ViewModel": true,
-    "Web_Page_Index": true,
-    "Web_Page_IndexCs": true,
-    "Web_Page_IndexJs": true,
-    "Web_Page_Create": false,
-    "Web_Page_CreateCs": false,
-    "Web_Page_CreateJs": false,
-    "Web_Page_Edit": false,
-    "Web_Page_EditCs": false,
-    "Web_Page_EditJs": false,
-
-    "MongoDB_IDbContext": true,
-    "MongoDB_DbContext": true,
-
-    "Web_AutoMapper": true,
-    "Web_PageToolbar": true,
-    "Web_PageAuthorization": true,
-    "Web_Menu_Consts": true,
-    "Web_Menu_ContributorModify": true,
-    "Web_Menu_Contributor": true
+    "Web_ViewModel": false,
+    "Web_Menu": false,
+    "Web_Pages": false,
+    "Web_Page_ExtraJs": true
   }
 }

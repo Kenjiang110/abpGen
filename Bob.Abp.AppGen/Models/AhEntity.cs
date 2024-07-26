@@ -159,12 +159,6 @@ namespace Bob.Abp.AppGen.Models
             UpdateFields += name;
         }
 
-        private static AbpCreateFile[] BasicAcFiles = new AbpCreateFile[] {
-            AbpCreateFile.Contracts_DtoEntity,
-            AbpCreateFile.Shared_EntityConsts,
-            AbpCreateFile.Web_Page_ViewModel,
-        };
-
         /// <summary>
         /// Initialize SkipSettings dictionary.
         /// </summary>
@@ -174,19 +168,13 @@ namespace Bob.Abp.AppGen.Models
             {
                 { AbpMiscFile.Shared_Localization.ToString(), false }
             };
-            foreach (AbpCreateFile acFile in Enum.GetValues(typeof(AbpCreateFile)))
+            foreach (AbpMainFile amFile in Enum.GetValues(typeof(AbpMainFile)))
             {
-                bool skip = !EntityKind.HasFlag(EntityKinds.Extensible) && !BasicAcFiles.Contains(acFile)
-                    || EntityKind.HasFlag(EntityKinds.Extensible) && (acFile == AbpCreateFile.Web_Page_CreateJs || acFile == AbpCreateFile.Web_Page_EditJs)
-                    || acFile == AbpCreateFile.HttpApi_Controller;
-                SkipSettings.Add(acFile.ToString(), skip);
-            }
-            foreach (AbpEditFile aeFile in Enum.GetValues(typeof(AbpEditFile)))
-            {
-                bool skip = !EntityKind.HasFlag(EntityKinds.Extensible)
-                    && (aeFile == AbpEditFile.MongoDB_DbContext || aeFile != AbpEditFile.MongoDB_IDbContext);
-                SkipSettings.Add(aeFile.ToString(), skip);
-            }
+                bool skip = EntityKind.HasFlag(EntityKinds.Extensible) && amFile == AbpMainFile.Web_Page_ExtraJs
+                    || amFile == AbpMainFile.HttpApi_Controller
+                    || amFile == AbpMainFile.MongoDB_Repository;
+                SkipSettings.Add(amFile.ToString(), skip);
+            }          
         }
 
         /// <summary>

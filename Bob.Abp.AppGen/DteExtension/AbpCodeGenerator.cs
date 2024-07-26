@@ -29,7 +29,6 @@ namespace Bob.Abp.AppGen.DteExtension
 
         public bool CreateOrUpdateLocalization()
         {
-
             var relativePath = $"Localization{Path.DirectorySeparatorChar}{_sln.ModuleName}";
             string fullfolderPathName = _sln.GetAbsolutePath(AbpProjectType.Shared, relativePath);
 
@@ -49,81 +48,65 @@ namespace Bob.Abp.AppGen.DteExtension
             return done;
         }
 
-        /// <summary>
-        /// Create code file for abpGenFile: 
-        ///     Contracts_EntityDto, Contracts_RequestDto, Contracts_CreateUpdateDto, Contracts_IAppService,
-        ///     Application_AppService
-        /// </summary>
-        /// <param name="abpFile"></param>
-        public bool CreateCodeFile(AbpCreateFile abpFile)
+        public void CreateOrEditFiles(AbpMainFile abpFile)
         {
-            var ahPrjItem = abpFile.GetAhProjectItem(_entity);
-            var prj = _sln.GetProject(ahPrjItem.ProjectType);
-            string fileName = ahPrjItem.FileName;
-            string fullFileName = _sln.GetAbsolutePath(ahPrjItem.ProjectType, ahPrjItem.RelativeFolder, fileName);
-            if ((!ahPrjItem.Secured && !_safeMode) || !File.Exists(fullFileName))
-            {
-                TemplateData data = new TemplateData(_entity);
-                string codes = data.Build(abpFile);
-                var item = prj.AddFileFromContent(ahPrjItem.RelativeFolder, fileName, codes);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
-        /// <summary>
-        /// Contracts_PermissionConst, Contracts_PermissionDefine
-        /// </summary>
-        /// <param name="abpFile"></param>
-        public bool ModifyCodeFile(AbpEditFile abpFile)
-        {
+            var ahPrjItems = abpFile.GetAhProjectItems(_entity);
             var templateData = new TemplateData(_entity);
-            var ahPrjItem = abpFile.GetAhProjectItem(_entity);
-            var prjItem = ahPrjItem.ToProjectItem(_sln);
-            if (prjItem == null) return false;  //ignore if file to modify donesn't exist.
-
-            CodeElement mainCodeElement = null;
-            //Core element's existence means assistant element was already prepared (added).
-            //And !safeMode means force to update the core element and only the core element.
-            bool exists = ahPrjItem.CoreElement.CodeElementExists(prjItem, ref mainCodeElement, removeIt: !_safeMode && !ahPrjItem.Secured);
-            if (exists && (ahPrjItem.Secured || _safeMode))
+            foreach (var ahProjectItem in ahPrjItems)
             {
-                return false;
-            }
-
-            foreach (var ahEp in ahPrjItem.EditPoints)
-            {
-                EditPoint editPoint = ahEp.ToEditPoint(prjItem, ref mainCodeElement);
-
-                if (ahPrjItem.CoreElement.Kind == vsCMElement.vsCMElementVariable
-                    && ahEp.TemplateType == TemplateType.Main)
+                if (ahProjectItem is AhEditProjectItem ahPrjItem)
                 {
-                    var content = templateData.Build(abpFile, ahEp.TemplateType);
-                    var vars = content.ToLines(StringSplitOptions.None);
-                    templateData.VariableChain = mainCodeElement.AddVariables(editPoint, vars);  //avoid duplicately add middle variables
+                    var prjItem = ahPrjItem.ToProjectItem(_sln);
+                    if (prjItem == null) continue;  //ignore if file to modify donesn't exist.
+
+                    CodeElement mainCodeElement = null;
+                    //Core element's existence means assistant element was already prepared (added).
+                    //And !safeMode means force to update the core element and only the core element.
+                    bool exists = ahPrjItem.CoreElement.CodeElementExists(prjItem, ref mainCodeElement, removeIt: !_safeMode && !ahPrjItem.Secured);
+                    if (exists && (ahPrjItem.Secured || _safeMode))
+                    {
+                        continue;
+                    }
+
+                    foreach (var ahEp in ahPrjItem.EditPoints)
+                    {
+                        EditPoint editPoint = ahEp.ToEditPoint(prjItem, ref mainCodeElement);
+
+                        if (ahPrjItem.CoreElement.Kind == vsCMElement.vsCMElementVariable
+                            && ahEp.Is(TemplateType.Main))
+                        {
+                            var content = templateData.Build(ahEp);
+                            var vars = content.ToLines(StringSplitOptions.None);
+                            templateData.VariableChain = mainCodeElement.AddVariables(editPoint, vars);  //avoid duplicately add middle variables
+                        }
+                        else if (ahEp.Is(TemplateType.Using) && !exists)
+                        {
+                            var usNamespaces = templateData.BuildUsing(ahEp);
+                            prjItem.AddUsings(editPoint, usNamespaces);
+                        }
+                        //if Main tempalte then core element must has been removed or core element never added.
+                        else if (ahEp.Is(TemplateType.Main) || !exists)
+                        {
+                            var content = templateData.Build(ahEp);
+                            editPoint.Insert(content);
+                        }
+                    }
+
+                    if (prjItem.IsDirty) prjItem.Save();
                 }
                 else
                 {
-                    if (ahEp.TemplateType == TemplateType.Using && !exists)
+                    var prj = _sln.GetProject(ahProjectItem.ProjectType);
+                    string fileName = ahProjectItem.FileName;
+                    string fullFileName = _sln.GetAbsolutePath(ahProjectItem.ProjectType, ahProjectItem.RelativeFolder, fileName);
+                    if ((!ahProjectItem.Secured && !_safeMode) || !File.Exists(fullFileName))
                     {
-                        var usNamespaces = templateData.BuildUsing(abpFile);
-                        prjItem.AddUsings(editPoint, usNamespaces);
-                    }
-                    //if Main tempalte then core element must has been removed or core element never added.
-                    else if (ahEp.TemplateType == TemplateType.Main || !exists)
-                    {
-                        var content = templateData.Build(abpFile, ahEp.TemplateType);
-                        editPoint.Insert(content);
+                        TemplateData data = new TemplateData(_entity);
+                        string codes = data.Build(ahProjectItem);
+                        prj.AddFileFromContent(ahProjectItem.RelativeFolder, fileName, codes);
                     }
                 }
             }
-
-            if (prjItem.IsDirty) prjItem.Save();
-            return true;
         }
     }
 }

@@ -133,34 +133,6 @@ namespace Bob.Abp.AppGen.Templates
         /// Full resource name (should be [RootNamespace].[folder path].[resource name])
         /// </summary>
         /// <param name="abpFile">name of file to be generated.</param>
-        /// <param name="type">template type.</param>
-        /// <returns>template full resource name.</returns>
-        private static string ToResourceName(this AbpEditFile abpFile, TemplateType type)
-        {
-            if (type == TemplateType.None)
-            {
-                throw new ArgumentException("There is no tempalte for type None!");
-            }
-            string templateName = abpFile.ToString().Replace('_', '.');
-            templateName = (type == TemplateType.Main) ? templateName : $"{templateName}_{type}";
-            return GetResourceName(templateName);
-        }
-
-        /// <summary>
-        /// Full resource name (should be [RootNamespace].[folder path].[resource name])
-        /// </summary>
-        /// <param name="abpFile">name of file to be generated.</param>
-        /// <returns>template full resource name.</returns>
-        private static string ToResourceName(this AbpCreateFile abpFile)
-        {
-            string templateName = abpFile.ToString().Replace('_', '.');
-            return GetResourceName(templateName);
-        }
-
-        /// <summary>
-        /// Full resource name (should be [RootNamespace].[folder path].[resource name])
-        /// </summary>
-        /// <param name="abpFile">name of file to be generated.</param>
         /// <returns>template full resource name.</returns>
         private static string ToResourceName(this AbpMiscFile abpFile)
         {
@@ -184,10 +156,10 @@ namespace Bob.Abp.AppGen.Templates
         /// Use data to build the text result from a template resource with Usings.Template
         /// </summary>
         /// <param name="abpGenFile">to determinate the template</param>
-        public static string Build(this TemplateData data, AbpCreateFile abpFile)
+        public static string Build(this TemplateData data, AhProjectItem ahItem)
         {
             //var test = _assembly.GetManifestResourceNames();
-            var res = _assembly.GetManifestResourceStream(abpFile.ToResourceName());
+            var res = _assembly.GetManifestResourceStream(GetResourceName(ahItem.TemplateName));
             if (res != null)
             {
                 var stream = new StreamReader(res);
@@ -209,9 +181,9 @@ namespace Bob.Abp.AppGen.Templates
         /// Use data to build the text result from a template resource. 
         /// </summary>
         /// <param name="templateName"></param>
-        public static string Build(this TemplateData data, AbpEditFile abpFile, TemplateType type)
+        public static string Build(this TemplateData data, AhEditPoint ahPoint)
         {
-            var res = _assembly.GetManifestResourceStream(abpFile.ToResourceName(type));
+            var res = _assembly.GetManifestResourceStream(GetResourceName(ahPoint.TemplateName));
             if (res != null)
             {
                 var stream = new StreamReader(res);
@@ -226,9 +198,9 @@ namespace Bob.Abp.AppGen.Templates
         /// Use data to build the text array from a template resource.
         /// </summary>
         /// <param name="templateName"></param>
-        public static string[] BuildUsing(this TemplateData data, AbpEditFile abpFile)
+        public static string[] BuildUsing(this TemplateData data, AhEditPoint ahPoint)
         {
-            var res = _assembly.GetManifestResourceStream(abpFile.ToResourceName(TemplateType.Using));
+            var res = _assembly.GetManifestResourceStream(GetResourceName(ahPoint.TemplateName));
             if (res != null)
             {
                 var stream = new StreamReader(res);

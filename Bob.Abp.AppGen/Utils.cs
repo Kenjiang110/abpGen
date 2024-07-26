@@ -264,12 +264,7 @@ namespace Bob.Abp.AppGen
                 || kind == vsCMElement.vsCMElementFunction;
         }
 
-        public static bool ToSkip(this Dictionary<string, bool> skipSettings, AbpEditFile abpFile)
-        {
-            return skipSettings[abpFile.ToString()] == true;
-        }
-
-        public static bool ToSkip(this Dictionary<string, bool> skipSettings, AbpCreateFile abpFile)
+        public static bool ToSkip(this Dictionary<string, bool> skipSettings, AbpMainFile abpFile)
         {
             return skipSettings[abpFile.ToString()] == true;
         }

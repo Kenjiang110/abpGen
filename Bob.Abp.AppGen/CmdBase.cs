@@ -26,8 +26,6 @@ namespace Bob.Abp.AppGen
         /// </summary>
         protected readonly AsyncPackage package = null;
 
-        protected static IVsUIShell _uishell = null;
-
         protected static OutputWindowPane _outputPane = null;
 
         public static EnvDTE80.DTE2 _dte = null;
@@ -40,27 +38,18 @@ namespace Bob.Abp.AppGen
         protected static void OutputMessage(string message, string source = null, bool lineEnd = false)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            if (_outputPane != null)
-            {
-                _outputPane.OutputString($"{source}{message}{(lineEnd ? Environment.NewLine : String.Empty)}");
-                if (_uishell != null)
-                {
-                    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(_uishell.UpdateCommandUI(1));
-                }
-            }
+
+            _outputPane?.OutputString($"{source}{message}{(lineEnd ? Environment.NewLine : String.Empty)}");
         }
 
         /// <summary>
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        public static async Task BaseInitializeAsync(AsyncPackage package, EnvDTE80.DTE2 dte)
+        public static void BaseInitialize(AsyncPackage package, EnvDTE80.DTE2 dte)
         {
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
             if (_dte == null) _dte = dte;
             if (_outputPane == null) _outputPane = _dte.GetOrCreateOutputPane("Bob.Abp.AppGen");
-            if (_uishell == null) _uishell = await package.GetServiceAsync(typeof(IVsUIShell)) as IVsUIShell;
         }
     }
 }

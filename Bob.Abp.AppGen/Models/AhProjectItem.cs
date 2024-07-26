@@ -33,6 +33,8 @@ namespace Bob.Abp.AppGen.Models
         public string FileName { get; set; }
         private string FileNameTemplate { get; set; }
 
+        public string TemplateName { get; set; }
+
 
         /// <summary>
         /// Secured means force into safe mode.
@@ -49,7 +51,7 @@ namespace Bob.Abp.AppGen.Models
         /// <summary>
         /// Contructor.
         /// </summary>
-        public AhProjectItem(AbpProjectType projectType, string relativePath, string fileName, bool secured = false)
+        public AhProjectItem(AbpProjectType projectType, string relativePath, string fileName, string templateName, bool secured = false)
         {
             const string upDirectoryFlag = "..";
             if (relativePath.EndsWith(upDirectoryFlag))
@@ -65,6 +67,7 @@ namespace Bob.Abp.AppGen.Models
             
             ProjectType = projectType;
             FileNameTemplate = fileName;
+            TemplateName = $"{projectType}.{templateName}";
             Secured = secured;
         }
 

@@ -1,10 +1,4 @@
 ﻿using EnvDTE;
-using Bob.Abp.AppGen.Templates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bob.Abp.AppGen.Models
 {
@@ -21,18 +15,18 @@ namespace Bob.Abp.AppGen.Models
         /// <summary>
         /// Template's type.
         /// </summary>
-        public TemplateType TemplateType {  get; set; }
+        public string TemplateName { get; set; }
 
         /// <summary>
         /// true means fall back to end of root element if the edit point is missing.
         /// </summary>
-        public bool FallBackToRoot {  get; set; }
+        public bool FallBackToRoot { get; set; }
 
-        public AhEditPoint(string name, vsCMElement kind, Positions position, TemplateType templateType, bool fallback = false)
+        public AhEditPoint(string name, vsCMElement kind, Positions position, string templateName, bool fallback = false)
             : base(name, kind)
         {
             Position = position;
-            TemplateType = templateType;
+            TemplateName = templateName;
 
             FallBackToRoot = fallback;
         }

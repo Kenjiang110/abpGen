@@ -54,9 +54,8 @@ namespace Bob.Abp.AppGen
         /// <param name="package">Owner package, not null.</param>
         public static async Task InitializeAsync(AsyncPackage package, EnvDTE80.DTE2 dte)
         {
-            await BaseInitializeAsync(package, dte);
-
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
+            BaseInitialize(package, dte);
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CmdExtractInfoFile(package, commandService);
         }
