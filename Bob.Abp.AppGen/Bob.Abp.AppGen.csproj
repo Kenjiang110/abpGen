@@ -89,7 +89,7 @@
     <Compile Include="TemplateDataModel\TemplateDataExtension.cs" />
     <Compile Include="TemplateDataModel\TemplateCoreData.cs" />
     <Compile Include="TemplateDataModel\TemplateType.cs" />
-    <None Include="Templates\EntityFrameworkCore\CreatingExtensions.vue" />
+    <EmbeddedResource Include="Templates\EntityFrameworkCore\CreatingExtensions.vue" />
     <Compile Include="Utils.cs" />
     <Compile Include="TemplateDataModel\TemplateData.cs" />
     <EmbeddedResource Include="Templates\Application\AppService.vue" />
