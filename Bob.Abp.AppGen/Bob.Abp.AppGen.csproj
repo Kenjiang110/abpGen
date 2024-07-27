@@ -112,7 +112,7 @@
     <EmbeddedResource Include="Templates\Web\PageToolbar_Calling.vue" />
     <EmbeddedResource Include="Templates\Web\PageAuthorization_Main.vue" />
     <EmbeddedResource Include="Templates\Web\PageAuthorization_Calling.vue" />
-    <EmbeddedResource Include="Templates\Web\Menu\Consts.vue" />
+    <EmbeddedResource Include="Templates\Web\Menu\Consts_Main.vue" />
     <EmbeddedResource Include="Templates\Web\Menu\Contributor_Main.vue" />
     <EmbeddedResource Include="Templates\Web\Menu\ContributorModify_Calling.vue" />
     <EmbeddedResource Include="Templates\Application\AutoMapper_Using.vue" />
