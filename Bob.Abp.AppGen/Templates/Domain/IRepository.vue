@@ -9,15 +9,13 @@ namespace {{Namespace}}
     public interface I{{EntityName}}Repository : IRepository<{{EntityName}}, Guid>
     {
         Task<List<{{EntityName}}>> GetListAsync(string? sorting, int skipCount, int maxResultCount,
-    {{#HasStringRequestField}}
             string? filter = null,
-    {{/HasStringRequestField}}
     {{#RequestNotStringProperties}}
             {{{PropertyType}}}? {{ToCamel PropertyName}} = null,
     {{/RequestNotStringProperties}}
             bool includeDetails = false, CancellationToken cancellationToken = default);
 
-        Task<long> GetCountAsync({{#HasStringRequestField}}string? filter = null,{{/HasStringRequestField}}
+        Task<long> GetCountAsync(string? filter = null,
     {{#RequestNotStringProperties}}
             {{{PropertyType}}}? {{ToCamel PropertyName}} = null,
     {{/RequestNotStringProperties}}

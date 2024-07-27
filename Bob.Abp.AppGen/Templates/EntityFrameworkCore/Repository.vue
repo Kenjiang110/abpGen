@@ -14,7 +14,7 @@ namespace {{Namespace}};
 public class {{EntityName}}Repository(IDbContextProvider<{{ModuleName}}DbContext> dbContextProvider) 
     : EfCoreRepository<{{ModuleName}}DbContext, {{EntityName}}, Guid>(dbContextProvider), I{{EntityName}}Repository
 {
-    public async virtual Task<IQueryable<{{EntityName}}>> GetQueryableAsync({{#HasStringRequestField}}string? filter,{{/HasStringRequestField}}
+    public async virtual Task<IQueryable<{{EntityName}}>> GetQueryableAsync(string? filter,
     {{#RequestNotStringProperties}}
         {{{PropertyType}}}? {{ToCamel PropertyName}},
     {{/RequestNotStringProperties}}
@@ -22,7 +22,7 @@ public class {{EntityName}}Repository(IDbContextProvider<{{ModuleName}}DbContext
     {
         var queryable = includeDetails ? (await WithDetailsAsync()) : (await base.GetQueryableAsync());
 
-        return queryable
+        return queryable{{^RequestNotStringProperties}}{{^HasStringRequestField}};{{/HasStringRequestField}}{{/RequestNotStringProperties}}
     {{#RequestNotStringProperties}}
             .WhereIf({{ToCamel PropertyName}}.HasValue, x => x.{{PropertyName}} == {{ToCamel PropertyName}}!.Value)
     {{/RequestNotStringProperties}}
@@ -49,7 +49,7 @@ public class {{EntityName}}Repository(IDbContextProvider<{{ModuleName}}DbContext
              .ToListAsync(GetCancellationToken(cancellationToken));
     }
 
-    public async Task<long> GetCountAsync({{#HasStringRequestField}}string? filter = null,{{/HasStringRequestField}}
+    public async Task<long> GetCountAsync(string? filter = null,
     {{#RequestNotStringProperties}}
         {{{PropertyType}}}? {{ToCamel PropertyName}} = null,
     {{/RequestNotStringProperties}}
