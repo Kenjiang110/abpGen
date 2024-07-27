@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
-namespace {{Namespace}}
+namespace {{RootNamespace}}.{{ModuleName}}.EntityFrameworkCore
 {
     public static class {{ModuleName}}DbContextModelCreatingExtensions
     {
