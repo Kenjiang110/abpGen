@@ -52,32 +52,52 @@ namespace Bob.Abp.AppGen.DteExtension
         {
             var ahPrjItems = abpFile.GetAhProjectItems(_entity);
             var templateData = new TemplateData(_entity);
-            foreach (var ahProjectItem in ahPrjItems)
+            foreach (var ahPrjItem in ahPrjItems)
             {
-                if (ahProjectItem is AhEditProjectItem ahPrjItem)
+                if (ahPrjItem is AhEditProjectItem)
                 {
-                    EditFile(templateData, ahPrjItem);
+                    EditFile(templateData, ahPrjItem as AhEditProjectItem);
                 }
                 else
                 {
-                    var prj = _sln.GetProject(ahProjectItem.ProjectType);
-                    string fileName = ahProjectItem.FileName;
-                    string fullFileName = _sln.GetAbsolutePath(ahProjectItem.ProjectType, ahProjectItem.RelativeFolder, fileName);
-                    if ((!ahProjectItem.Secured && !_safeMode) || !File.Exists(fullFileName))
-                    {
-                        TemplateData data = new TemplateData(_entity);
-                        string codes = data.Build(ahProjectItem);
-                        prj.AddFileFromContent(ahProjectItem.RelativeFolder, fileName, codes);
-                    }
+                    CreateFile(ahPrjItem);
                 }
             }
+        }
+
+        private bool CreateFile(AhProjectItem ahPrjItem)
+        {
+            var prj = _sln.GetProject(ahPrjItem.ProjectType);
+            string fileName = ahPrjItem.FileName;
+            string fullFileName = _sln.GetAbsolutePath(ahPrjItem.ProjectType, ahPrjItem.RelativeFolder, fileName);
+            if ((!ahPrjItem.Secured && !_safeMode) || !File.Exists(fullFileName))
+            {
+                TemplateData data = new TemplateData(_entity);
+                string codes = data.Build(ahPrjItem);
+                if (codes != null)
+                {
+                    prj.AddFileFromContent(ahPrjItem.RelativeFolder, fileName, codes);
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool EditFile(TemplateData templateData, AhEditProjectItem ahPrjItem)
         {
             var prjItem = ahPrjItem.ToProjectItem(_sln);
-            if (prjItem == null) return false;  //ignore if file to modify donesn't exist.
-
+            if (prjItem == null)
+            {
+                if (CreateFile(ahPrjItem))
+                {
+                    prjItem = ahPrjItem.ToProjectItem(_sln);
+                    if (prjItem == null) return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             CodeElement mainCodeElement = null;
             //Core element's existence means assistant element was already prepared (added).
             //And !safeMode means force to update the core element and only the core element.
