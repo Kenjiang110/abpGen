@@ -50,9 +50,9 @@
                     <TextBox Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="3" Text="{Binding Name}" VerticalAlignment="Center"/>
                     <StackPanel Grid.Column="3" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
                         <CheckBox Content="Entity" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Entity}, Converter={StaticResource ekConveter}}" />
-                        <CheckBox Content="Hierarcy" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="True" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Hierarcy}, Converter={StaticResource ekConveter}}"/>
-                        <CheckBox Content="Extensible" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="True" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Extensible}, Converter={StaticResource ekConveter}}"/>
-                        <CheckBox Content="MultiTent" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="True" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.MultiTenant}, Converter={StaticResource ekConveter}}"/>
+                        <CheckBox Content="Hierarcy" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Hierarcy}, Converter={StaticResource ekConveter}}"/>
+                        <CheckBox Content="Extensible" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="True" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.Extensible}, Converter={StaticResource ekConveter}, Mode=OneWay}" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"/>
+                        <CheckBox Content="MultiTent" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" IsChecked="{Binding EntityKind, ConverterParameter={x:Static model:EntityKinds.MultiTenant}, Converter={StaticResource ekConveter}}"/>
                     </StackPanel>
                     <CheckBox Grid.Column="3" Content="Allowed" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" IsChecked="{Binding AllowBatchDelete}"/>
                     <Grid Grid.Column="3" Grid.Row="6">
