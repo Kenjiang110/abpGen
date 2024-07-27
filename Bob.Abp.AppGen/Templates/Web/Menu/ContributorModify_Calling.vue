@@ -1,1 +1,1 @@
-﻿        await Configure{{ModuleName}}MenuAsync(context);
+﻿            await Configure{{ModuleName}}MenuAsync(context);

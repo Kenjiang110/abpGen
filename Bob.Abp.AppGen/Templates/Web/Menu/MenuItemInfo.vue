@@ -35,3 +35,14 @@ public class MenuItemInfo
         return item;
     }
 }
+
+public static class MenuItemInfoExtensions
+{
+    public static ApplicationMenuItem AddAndGetSubItem(this ApplicationMenuItem menu, MenuItemInfo menuItemInfo, IStringLocalizer l, int order = 1000)
+    {
+        ApplicationMenuItem menuItem = menuItemInfo.CreateApplicationMenuItem(l, order);
+        menu.AddItem(menuItem);
+
+        return menuItem;
+    }
+}
