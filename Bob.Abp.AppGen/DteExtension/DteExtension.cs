@@ -1,10 +1,6 @@
 ﻿using Bob.Abp.AppGen.Models;
 using Bob.Abp.AppGen.Templates;
 using EnvDTE;
-using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell.Interop;
-
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
