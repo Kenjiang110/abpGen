@@ -108,9 +108,9 @@
     <EmbeddedResource Include="Templates\MongoDB\DbContext_Calling.vue" />
     <EmbeddedResource Include="Templates\Web\AutoMapper_Calling.vue" />
     <EmbeddedResource Include="Templates\Web\AutoMapper_Main.vue" />
-    <EmbeddedResource Include="Templates\Web\PageToolbar_Main.vue" />
+    <EmbeddedResource Include="Templates\Web\ConfigureExtensions_Toolbar_Main.vue" />
     <EmbeddedResource Include="Templates\Web\PageToolbar_Calling.vue" />
-    <EmbeddedResource Include="Templates\Web\PageAuthorization_Main.vue" />
+    <EmbeddedResource Include="Templates\Web\ConfigureExtensions_Authorization_Main.vue" />
     <EmbeddedResource Include="Templates\Web\PageAuthorization_Calling.vue" />
     <EmbeddedResource Include="Templates\Web\Menu\Consts_Main.vue" />
     <EmbeddedResource Include="Templates\Web\Menu\Contributor_Main.vue" />
@@ -119,8 +119,8 @@
     <EmbeddedResource Include="Templates\MongoDB\IDbContext_Using.vue" />
     <EmbeddedResource Include="Templates\MongoDB\DbContext_Using.vue" />
     <EmbeddedResource Include="Templates\Web\AutoMapper_Using.vue" />
-    <EmbeddedResource Include="Templates\Web\PageToolbar_Using.vue" />
-    <EmbeddedResource Include="Templates\Web\PageAuthorization_Using.vue" />
+    <EmbeddedResource Include="Templates\Web\ConfigureExtensions_Toolbar_Using.vue" />
+    <EmbeddedResource Include="Templates\Web\ConfigureExtensions_Authorization_Using.vue" />
     <EmbeddedResource Include="Templates\Web\Menu\Contributor_Calling.vue" />
     <EmbeddedResource Include="Templates\Web\Menu\ContributorModify_Main.vue" />
     <EmbeddedResource Include="Templates\Web\Menu\ContributorModify_Using.vue" />
@@ -151,6 +151,7 @@
     <EmbeddedResource Include="Templates\Domain\IRepository.vue" />
     <EmbeddedResource Include="Templates\EntityFrameworkCore\Repository.vue" />
     <EmbeddedResource Include="Templates\EntityFrameworkCore\Configure_Main.vue" />
+    <EmbeddedResource Include="Templates\Web\ConfigureExtensions.vue" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">

@@ -43,11 +43,11 @@ namespace Bob.Abp.AppGen.Models
         /// <summary>
         /// Set RealName from moduleName and entityName.
         /// </summary>
-        public void SetRealName(string moduleName, string entityName)
+        public void SetRealName(string moduleName, string entityName, string relativePath)
         {
             if (!String.IsNullOrEmpty(NameTemplate))
             {
-                Name = string.Format(NameTemplate, moduleName, entityName);
+                Name = string.Format(NameTemplate, moduleName, entityName, relativePath);
                 if (Name.EndsWith("_s"))
                 {
                     Name = Utils.ToPlural(Name.TrimEnd("_s"));

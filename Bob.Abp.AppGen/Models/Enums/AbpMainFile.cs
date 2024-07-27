@@ -24,7 +24,7 @@ namespace Bob.Abp.AppGen.Models
         /// <summary>
         /// {0} is ModuleName
         /// {1} is EntityName for file name and folderPath,
-        /// {2} is EntityRelativePath for folderPath ,
+        /// {2} is EntityRelativePath for folderPath , 
         /// {3} is Path.DirectorySeparatorChar
         /// </summary>
         private static readonly AhProjectItem[][] ahProjectItems = new AhProjectItem[][]
@@ -65,7 +65,7 @@ namespace Bob.Abp.AppGen.Models
                 new AhEditProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContext.cs", vsCMElement.vsCMElementProperty, "{1}_s", "DbContext")
                     .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, TemplateType.Using)
                     .AddEditPoint("{0}DbContext", vsCMElement.vsCMElementFunction, Positions.Before, TemplateType.Main),
-                new AhEditProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContext.cs", vsCMElement.vsCMElementOther, "builder.Configure{0}()", "Configure")
+                new AhEditProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContext.cs", vsCMElement.vsCMElementOther, "builder.Configure{0}()", "Configure", secured: true)
                     .AddEditPoint("OnModelCreating", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Main),
                 new AhEditProjectItem(AbpProjectType.EntityFrameworkCore, "EntityFrameworkCore", "{0}DbContextModelCreatingExtensions.cs", vsCMElement.vsCMElementFunction, "Configure{1}", "CreatingExtensions")
                     .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, TemplateType.Using)
@@ -80,10 +80,6 @@ namespace Bob.Abp.AppGen.Models
                 new AhEditProjectItem(AbpProjectType.Contracts, "Permissions", "{0}PermissionDefinitionProvider.cs", vsCMElement.vsCMElementFunction, "Define{1}", "PermissionDefine")
                     .AddEditPoint("Define", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Calling)
                     .AddEditPoint("L", vsCMElement.vsCMElementFunction, Positions.Before, TemplateType.Main),
-                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModule.cs", vsCMElement.vsCMElementFunction, "Configure{1}PageAuthorization", "PageAuthorization")
-                    .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, TemplateType.Using)
-                    .AddEditPoint("ConfigureServices", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Calling)
-                    .AddEditPoint("ConfigureServices", vsCMElement.vsCMElementFunction, Positions.After, TemplateType.Main),
             },
 
             //6.AppService
@@ -124,10 +120,16 @@ namespace Bob.Abp.AppGen.Models
 
             //10. Pages
             new[] {
-                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModule.cs", vsCMElement.vsCMElementFunction, "Configure{1}PageToolbar", "PageToolbar")
-                    .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, TemplateType.Using)
-                    .AddEditPoint("ConfigureServices", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Calling)
-                    .AddEditPoint("ConfigureServices", vsCMElement.vsCMElementFunction, Positions.After, TemplateType.Main),
+                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModuleConfigureExtensions.cs", vsCMElement.vsCMElementOther, "//{2}/{1}.Toolbar", "ConfigureExtensions")
+                    .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, "Toolbar_" + TemplateType.Using)
+                    .AddEditPoint("ConfigureToolbarOptions", vsCMElement.vsCMElementFunction, Positions.End, "Toolbar_" + TemplateType.Main),
+                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModuleConfigureExtensions.cs", vsCMElement.vsCMElementOther, "//{2}/{1}.Authorization", "ConfigureExtensions")
+                    .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, "Toolbar_" + TemplateType.Using)
+                    .AddEditPoint("ConfigurePageAuthorization", vsCMElement.vsCMElementFunction, Positions.End, "Authorization_" + TemplateType.Main),
+                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModule.cs", vsCMElement.vsCMElementOther, "{0}WebModuleConfigureExtensions.ConfigureToolbarOptions(options)", "PageToolbar")
+                    .AddEditPoint("ConfigureServices", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Calling),
+                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModule.cs", vsCMElement.vsCMElementOther, "{0}WebModuleConfigureExtensions.ConfigurePageAuthorization(options)", "PageAuthorization")
+                    .AddEditPoint("ConfigureServices", vsCMElement.vsCMElementFunction, Positions.End, TemplateType.Calling),
                 new AhProjectItem(AbpProjectType.Web, "Pages{3}{2}{3}{1}", "Index.cshtml", "Page.Index"),
                 new AhProjectItem(AbpProjectType.Web, "Pages{3}{2}{3}{1}", "Index.cshtml.cs", "Page.IndexCs"),
                 new AhProjectItem(AbpProjectType.Web, "Pages{3}{2}{3}{1}", "Index.js", "Page.IndexJs"),

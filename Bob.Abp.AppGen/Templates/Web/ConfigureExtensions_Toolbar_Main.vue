@@ -1,9 +1,4 @@
-﻿    
-    
-    private void Configure{{EntityName}}PageToolbar()
-    {
-        Configure<AbpPageToolbarOptions>(options =>
-        {
+﻿            //Pages/{{RelativePath}}/{{EntityName}}.Authorization
             options.Configure<Pages.{{LastEntityGroup.RelativeNsPath}}.{{EntityName}}.IndexModel>(
                 toolbar =>
                 {
@@ -26,5 +21,3 @@
                     );
                 }
             );
-        });
-    }

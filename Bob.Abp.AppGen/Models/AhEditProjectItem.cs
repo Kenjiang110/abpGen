@@ -36,12 +36,12 @@ namespace Bob.Abp.AppGen.Models
         /// <returns>This object for chain calling.</returns>
         public override AhProjectItem SetRealNames(string moduleName, string entityName, string relativePath = null)
         {
-            base.SetRealNames(moduleName, entityName, null);
-            CoreElement.SetRealName(moduleName, entityName);
+            base.SetRealNames(moduleName, entityName, relativePath);
+            CoreElement.SetRealName(moduleName, entityName, relativePath);
 
             foreach (var editPoint in EditPoints)
             {
-                editPoint.SetRealName(moduleName, entityName);
+                editPoint.SetRealName(moduleName, entityName, relativePath);
             }
 
             return this;

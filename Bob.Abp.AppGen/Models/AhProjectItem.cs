@@ -78,7 +78,7 @@ namespace Bob.Abp.AppGen.Models
         /// <returns>This object for chain calling.</returns>
         public virtual AhProjectItem SetRealNames(string moduleName, string entityName, string relativePath)
         {
-            FileName = String.Format(FileNameTemplate, moduleName, entityName);
+            FileName = String.Format(FileNameTemplate, moduleName, entityName, relativePath);
             if (UsingUpFolder)
             {
                 relativePath = relativePath.GetUpFolder();
