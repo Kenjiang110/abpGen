@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Bob.Abp.AppGen.5c46acf4-2bb6-48a1-81bb-c6facd5f4559" Version="2.0.0" Language="en-US" Publisher="Ken" />
+        <Identity Id="Bob.Abp.AppGen.5c46acf4-2bb6-48a1-81bb-c6facd5f4559" Version="2.0.2" Language="en-US" Publisher="Ken" />
         <DisplayName>Bob.Abp.AppGen</DisplayName>
         <Description xml:space="preserve">Generate all ABP vNext source code files for an Entity.  V2.0 supports more flexiable create/edit code templates. </Description>
         <Icon>HeroLogoS.png</Icon>

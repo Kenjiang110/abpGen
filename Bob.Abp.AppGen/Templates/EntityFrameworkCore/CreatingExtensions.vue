@@ -5,7 +5,7 @@ namespace {{Namespace}}
 {
     public static class {{ModuleName}}DbContextModelCreatingExtensions
     {
-        public static void Configur{{ModuleName}}(this ModelBuilder builder)
+        public static void Configure{{ModuleName}}(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
         }
