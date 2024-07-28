@@ -1,4 +1,4 @@
-﻿            //Pages/{{RelativePath}}/{{EntityName}}.Authorization
+﻿            //Pages/{{RelativePath}}/{{EntityName}}.Toolbar
             options.Configure<Pages.{{LastEntityGroup.RelativeNsPath}}.{{EntityName}}.IndexModel>(
                 toolbar =>
                 {
