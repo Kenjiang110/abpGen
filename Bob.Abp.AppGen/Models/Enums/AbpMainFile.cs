@@ -120,10 +120,10 @@ namespace Bob.Abp.AppGen.Models
 
             //10. Pages
             new[] {
-                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModuleConfigureExtensions.cs", vsCMElement.vsCMElementOther, "//{2}/{1}.Toolbar", "ConfigureExtensions")
+                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModuleConfigureExtensions.cs", vsCMElement.vsCMElementOther, "//{2}/{1}.Toolbar", "ConfigureExtensions", secured: true)
                     .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, "Toolbar_" + TemplateType.Using)
                     .AddEditPoint("ConfigureToolbarOptions", vsCMElement.vsCMElementFunction, Positions.End, "Toolbar_" + TemplateType.Main),
-                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModuleConfigureExtensions.cs", vsCMElement.vsCMElementOther, "//{2}/{1}.Authorization", "ConfigureExtensions")
+                new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModuleConfigureExtensions.cs", vsCMElement.vsCMElementOther, "//{2}/{1}.Authorization", "ConfigureExtensions", secured: true)
                     .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, "Authorization_" + TemplateType.Using)
                     .AddEditPoint("ConfigurePageAuthorization", vsCMElement.vsCMElementFunction, Positions.End, "Authorization_" + TemplateType.Main),
                 new AhEditProjectItem(AbpProjectType.Web, String.Empty, "{0}WebModule.cs", vsCMElement.vsCMElementOther, "{0}WebModuleConfigureExtensions.ConfigureToolbarOptions(options)", "PageToolbar")

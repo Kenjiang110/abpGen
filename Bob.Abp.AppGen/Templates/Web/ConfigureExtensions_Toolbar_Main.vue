@@ -1,4 +1,4 @@
-﻿            //Pages/{{RelativePath}}/{{EntityName}}.Toolbar
+﻿            //Pages/{{LastEntityGroup.RelativePath}}/{{EntityName}}.Toolbar
             options.Configure<Pages.{{LastEntityGroup.RelativeNsPath}}.{{EntityName}}.IndexModel>(
                 toolbar =>
                 {
