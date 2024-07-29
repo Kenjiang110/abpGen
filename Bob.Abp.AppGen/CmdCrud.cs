@@ -86,7 +86,7 @@ Choose [Yes] to use safe mode, [No] to OVERWRITE all files and your manually mod
             //    localization
             if (!entityModel.SkipSettings.ToSkip(AbpMiscFile.Shared_Localization))
             {
-                OutputMessage("Modify localization file...");
+                OutputMessage("Modify localization file...", lineEnd: true);
                 abpGenerator.CreateOrUpdateLocalization();
             }
             // Main files
@@ -94,7 +94,7 @@ Choose [Yes] to use safe mode, [No] to OVERWRITE all files and your manually mod
             {
                 if (!entityModel.SkipSettings.ToSkip(abpFile))
                 {
-                    OutputMessage($"Generate {abpFile}...");
+                    OutputMessage($"Generate {abpFile}...", lineEnd: true);
                     abpGenerator.CreateOrEditFiles(abpFile);
                 }
             }
