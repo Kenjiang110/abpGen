@@ -1,2 +1,1 @@
-﻿
-        Configure<AbpPageToolbarOptions>(options => {{ModuleName}}WebModuleConfigureExtensions.ConfigureToolbarOptions(options));
+﻿        Configure<AbpPageToolbarOptions>(options => options.ConfigureToolbarOptions());

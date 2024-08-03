@@ -1,2 +1,1 @@
-﻿
-        Configure<RazorPagesOptions>(options => {{ModuleName}}WebModuleConfigureExtensions.ConfigurePageAuthorization(options));
+﻿        Configure<RazorPagesOptions>(options => options.ConfigurePageAuthorization());

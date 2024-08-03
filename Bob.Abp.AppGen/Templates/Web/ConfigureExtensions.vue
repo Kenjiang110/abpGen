@@ -7,11 +7,11 @@ namespace {{RootNamespace}}.{{ModuleName}}.Web
 {
     public static class {{ModuleName}}WebModuleConfigureExtensions
     {
-        public static void ConfigureToolbarOptions(AbpPageToolbarOptions options)
+        public static void ConfigureToolbarOptions(this AbpPageToolbarOptions options)
         {
         }
 
-        public static void ConfigurePageAuthorization(RazorPagesOptions options)
+        public static void ConfigurePageAuthorization(this RazorPagesOptions options)
         {
         }
     }
