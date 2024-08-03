@@ -248,7 +248,7 @@ namespace Bob.Abp.AppGen
         /// <summary>
         /// Return if an array is null or it's length is less than miniLength.
         /// </summary>
-        public static bool IsEmpty(this string[] anyArray, int miniLength = 1)
+        public static bool IsEmptyOrLessThan(this string[] anyArray, int miniLength = 1)
         {
             return anyArray == null || anyArray.Length < miniLength;
         }

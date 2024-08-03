@@ -69,7 +69,7 @@ namespace Bob.Abp.AppGen.Templates
         protected ChainNode[] GetEntityGroupChain(string[] entityGroups)
         {
             var groups = new List<ChainNode>();
-            if (!entityGroups.IsEmpty())
+            if (!entityGroups.IsEmptyOrLessThan())
             {
                 groups.Add(new ChainNode(null, entityGroups[0]));
                 for (int i = 1; i < entityGroups.Length; i++)

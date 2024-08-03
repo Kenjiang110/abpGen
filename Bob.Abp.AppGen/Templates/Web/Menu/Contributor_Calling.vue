@@ -1,8 +1,8 @@
 ﻿{{#VariableChain}}
     {{^IsLast}}
-        var {{Name}}MenuItem = {{^ParentName}}{{ToCamel ModuleName}}{{/ParentName}}{{#ParentName}}{{.}}{{/ParentName}}MenuItem.AddAndGetSubItem({{ToCamel Name}}, l);
+        var {{Name}}MenuItem = {{^ParentName}}{{ToCamel ModuleName}}{{/ParentName}}{{#ParentName}}{{.}}{{/ParentName}}MenuItem.AddAndGetSubItem({{Name}}, l);
     {{/IsLast}}
     {{#IsLast}}
-        {{^ParentName}}{{ToCamel ModuleName}}{{/ParentName}}{{#ParentName}}{{.}}{{/ParentName}}MenuItem.AddAndGetSubItem({{ToCamel Name}}, l);
+        {{^ParentName}}{{ToCamel ModuleName}}{{/ParentName}}{{#ParentName}}{{.}}{{/ParentName}}MenuItem.AddAndGetSubItem({{Name}}, l);
     {{/IsLast}}
 {{#VariableChain}}

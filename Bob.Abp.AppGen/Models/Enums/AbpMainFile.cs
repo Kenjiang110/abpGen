@@ -107,11 +107,11 @@ namespace Bob.Abp.AppGen.Models
             //9.Menu
             new[] {
                 new AhProjectItem(AbpProjectType.Web, "Menus", "MenuItemInfo.cs", "Menu.MenuItemInfo", secured: true),
-                new AhEditProjectItem(AbpProjectType.Web, "Menus", "{0}Menus.cs", vsCMElement.vsCMElementVariable, "{1}", "Menu.Consts" )
-                    .AddEditPoint(null, vsCMElement.vsCMElementClass, Positions.End, TemplateType.Main),
-                new AhEditProjectItem(AbpProjectType.Web, "Menus", "{0}MenuContributor.cs", vsCMElement.vsCMElementFunction, "Configure{0}MenuAsync", "Menu.ContributorModify")
+                new AhEditProjectItem(AbpProjectType.Web, "Menus", "{0}MenuContributor.cs", vsCMElement.vsCMElementFunction, "Configure{0}MenuAsync", "Menu.ContributorModify", secured: true)
                     .AddEditPoint(null, vsCMElement.vsCMElementNamespace, Positions.Before, TemplateType.Using)
                     .AddEditPoint("ConfigureMenuAsync", vsCMElement.vsCMElementFunction, Positions.End | Positions.ExtraMove, TemplateType.Calling)
+                    .AddEditPoint(null, vsCMElement.vsCMElementClass, Positions.End, TemplateType.Main),
+                new AhEditProjectItem(AbpProjectType.Web, "Menus", "{0}Menus.cs", vsCMElement.vsCMElementVariable, "{1}", "Menu.Consts" )
                     .AddEditPoint(null, vsCMElement.vsCMElementClass, Positions.End, TemplateType.Main),
                 new AhEditProjectItem(AbpProjectType.Web, "Menus", "{0}MenuContributor.cs", vsCMElement.vsCMElementVariable, "dn{1}", "Menu.Contributor")
                     .AddEditPoint("Configure{0}MenuAsync", vsCMElement.vsCMElementFunction, Positions.Before, TemplateType.Main)

@@ -121,7 +121,7 @@ namespace Bob.Abp.AppGen.DteExtension
         {
             string[] pathSegments = relativePath?.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
             ProjectItem projectItem = null;
-            if (!pathSegments.IsEmpty())
+            if (!pathSegments.IsEmptyOrLessThan())
             {
                 string folderName = pathSegments[0];
                 projectItem = project.GetFileProjectItem(folderName);
@@ -651,7 +651,7 @@ namespace Bob.Abp.AppGen.DteExtension
         /// <param name="projectItem">The ahCodeElement.</param>
         /// <param name="mainElement">if mainElement is not null then use it directly else find it from project item.</param>
         /// <param name="removeIt">If this is a sub element then try remove it.</param>
-        /// <returns>The code element if found or null.</returns>
+        /// <returns>The code element, null if not found or removed.</returns>
         private static CodeElement ToCodeElement(this AhCodeElement ahCodeElement, ProjectItem projectItem, ref CodeElement mainElement, bool removeIt = false)
         {
             CodeElement codeElement;
@@ -682,6 +682,7 @@ namespace Bob.Abp.AppGen.DteExtension
                     {
                         (mainElement as CodeInterface).RemoveMember(codeElement);
                     }
+                    codeElement = null;  //removed
                 }
             }
 
@@ -851,9 +852,9 @@ namespace Bob.Abp.AppGen.DteExtension
                     }
                     lastVarName = varName;
                 }
-                else
+                else 
                 {
-                    editPoint.Insert($"{varValue}{Environment.NewLine}");
+                    editPoint.Insert($"{variable}{Environment.NewLine}");
                 }
             }
 
@@ -863,14 +864,14 @@ namespace Bob.Abp.AppGen.DteExtension
         private static bool ParseVariableString(this string variable, out string varPrefix, out string varName, out string varValue)
         {
             var varParts = variable?.Split('='); //prefix = varaibleName = value
-            if (!varParts.IsEmpty(3))
+            if (!varParts.IsEmptyOrLessThan(3))
             {
                 (varPrefix, varName, varValue) = (varParts[0].TrimEnd(), varParts[1].Trim(), varParts[2].Trim());
                 return true;
             }
             else
             {
-                (varPrefix, varName, varValue) = (null, null, variable);
+                (varPrefix, varName, varValue) = (null, null, null);
                 return false;
             }
         }
