@@ -115,7 +115,7 @@ namespace Bob.Abp.AppGen.Models
                     .AddEditPoint(null, vsCMElement.vsCMElementClass, Positions.End, TemplateType.Main),
                 new AhEditProjectItem(AbpProjectType.Web, "Menus", "{0}MenuContributor.cs", vsCMElement.vsCMElementVariable, "dn{1}", "Menu.Contributor")
                     .AddEditPoint("Configure{0}MenuAsync", vsCMElement.vsCMElementFunction, Positions.Before, TemplateType.Main)
-                    .AddEditPoint("Configure{0}MenuAsync", vsCMElement.vsCMElementFunction, Positions.End | Positions.ExtraMove, TemplateType.Calling),
+                    .AddEditPoint("Configure{0}MenuAsync", vsCMElement.vsCMElementFunction, Positions.End | Positions.ExtraMove2, TemplateType.Calling),
             },
 
             //10. Pages

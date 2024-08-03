@@ -37,6 +37,11 @@ namespace Bob.Abp.AppGen.Models
         /// </summary>
         ExtraMove = 8,
 
+        ///// <summary>
+        /// Move two lines in the direction.
+        /// </summary>
+        ExtraMove2 = 16,
+
         /// <summary>
         /// Before Start (outside)
         /// </summary>

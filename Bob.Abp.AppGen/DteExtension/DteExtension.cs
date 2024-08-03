@@ -770,18 +770,21 @@ namespace Bob.Abp.AppGen.DteExtension
                     ep.StartOfLine();
                 }
             }
-            if (pos.HasFlag(Positions.ExtraMove)) //extra movement
+            if (pos.HasFlag(Positions.ExtraMove) || pos.HasFlag(Positions.ExtraMove2)) //extra movement
             {
-                var ppos = pos ^ Positions.ExtraMove;
+                var ppos = pos ^ Positions.ExtraMove ^ Positions.ExtraMove2;
                 //body start or body after
                 if (ppos == Positions.Start || ppos == Positions.After)
                 {
                     ep.LineDown();
+                    if (pos.HasFlag(Positions.ExtraMove2)) ep.LineDown();
                 }
                 else //header before or body end
                 {
                     ep.LineUp();
+                    if (pos.HasFlag(Positions.ExtraMove2)) ep.LineUp();
                 }
+
                 if (ppos == Positions.After)
                 {
                     ep.EndOfLine();
