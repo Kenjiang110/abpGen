@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bob.Abp.AppGen", "Bob.Abp.AppGen\Bob.Abp.AppGen.csproj", "{16C2963E-A35C-44C4-840B-ED05FD17495A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bob.Abp.AspNetCore.Mvc.UI.Theme.Shared", "Bob.Abp.AspNetCore.Mvc.UI.Theme.Shared\Bob.Abp.AspNetCore.Mvc.UI.Theme.Shared.csproj", "{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|arm64.Build.0 = Release|arm64
 		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|x86.ActiveCfg = Release|x86
 		{16C2963E-A35C-44C4-840B-ED05FD17495A}.Release|x86.Build.0 = Release|x86
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Debug|arm64.Build.0 = Debug|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Debug|x86.Build.0 = Debug|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Release|arm64.ActiveCfg = Release|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Release|arm64.Build.0 = Release|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Release|x86.ActiveCfg = Release|Any CPU
+		{AEBA93C0-A891-498D-AD5C-BFA17EBFA19A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
