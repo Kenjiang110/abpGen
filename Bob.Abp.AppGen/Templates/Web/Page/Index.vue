@@ -1,4 +1,5 @@
 ﻿@page
+@using Bob.Abp.AspNetCore.Mvc.UI.Theme.Shared.Bundling
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
@@ -31,8 +32,7 @@
 @section scripts {
 <abp-script-bundle name="@typeof(IndexModel).FullName">
 {{#IsHierarcy}}
-    <abp-style type="typeof(JsTreeScriptContributor)" />
-    <abp-script src="/libs/jstree/jstree-extension.js" />
+    <abp-script type="typeof(JsTreeExtensionScriptContributor)" />
 {{/IsHierarcy}}
 {{^IsHierarcy}}
     {{#AllowBatchDelete}}
